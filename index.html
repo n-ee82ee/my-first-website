@@ -1,1 +1,99 @@
-!
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /> 
+  <meta name="viewport" connent="width=device-width, initial-scale=1" />
+  <title>Better Bagels - Real Bagels. The Old-School Way.</title>
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar">
+    <button class="ann-arrow" aria-label="Previous">&lsaquo;</button>
+    <span class="ann-text">BUY BULK BAGELS, SLICE + FREEZE! →</span>
+    <button class="ann-arrow" aria-label="Next">&rsaquo;</button>
+  </div>
+
+  <!-- Main Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="#home" data-nav="home">
+        <div class="logo-circle"><span>better<br/>bagels</span></div>
+      </a>
+      <nav class="primary-nav">
+        <a class="nav-link with-caret" href="#shop" data-nav="shop">Shop</a>
+        <a class="nav-link" href="#home" data-nav="home">About</a>
+        <a class="nav-link" href="#home" data-nav="home">Get in Touch</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" aria-label="Search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <button class="icon-btn" aria-label="Account">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </button>
+        <a class="icon-btn cart-btn" href="#cart" data-nav="cart" aria-label="Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-badge" id="cart-badge">0</span>
+        </a>
+      </div>
+    </div>
+  </header>   
+
+  <!-- ================== HOME PAGE ================== -->
+  <main class="page" id="page-home">
+    <section class="hero">
+      <div class="hero-image" style="background-image:url('assets/hero/home-hero.jpg')"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1 class="hero-title">Real Bagels.<br/>The Old-School Way.</h1>
+        <p class="hero-subtitle">Delivering to the South West (or pick up in Busselton)</p>
+        <div class="hero-body">
+          <p>
+            <strong>Hand-rolled, overnight proofed, boiled + baked</strong>—Better Bagels are made the <em>traditional way, with no shortcuts, no preservatives</em>, and a whole lot of flavour.
+          </p>
+          <p>
+            Crafted in small batches in South West WA, we bring a taste of our heritage to your table
+            <strong>Tuesday, Thursday and Saturday mornings</strong>... freshness guaranteed! We're excited to become a staple in your household.
+          </p>
+        </div>
+        <a href="#shop" data-nav="shop" class="btn-hero">START ORDERING</a>
+      </div>
+    </section>  
+
+    <section class="section section-categories">
+      <div class="section-inner">
+        <h2 class="section-title-lg">Shop by Category</h2>
+        <div class="category-grid">
+          <a href="#shop" data-nav="shop" data-cat="Bagels" class="category-card">
+            <div class="cat-img"><img src="assets/categories/cat-bagel.png" alt="Bagel"/></div>
+            <div class="cat-label">Bagel</div>
+          </a>
+          <a href="#shop" data-nav="shop" data-cat="Schmears" class="category-card">
+            <div class="cat-img"><img src="assets/categories/cat-schmear.png" alt="Schmear"/></div>
+            <div class="cat-label">Schmear</div>
+          </a>
+          <a href="#shop" data-nav="shop" data-cat="Sauces" class="category-card">
+            <div class="cat-img"><img src="assets/categories/cat-sauce.png" alt="Sauce"/></div>
+            <div class="cat-label">Sauce</div>
+          </a>
+          <a href="#shop" data-nav="shop" data-cat="Others" class="category-card">
+            <div class="cat-img"><img src="assets/categories/cat-others.png" alt="Others"/></div>
+            <div class="cat-label">Others</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-best-sellers">
+      <div class="section-inner">
+        <div class="section-head-row">
+          <h2 class="section-title-md">Best Sellers</h2>
+          <a href="#shop" data-nav="shop" class="view-all">View All</a>
+        </div>
+        <div class="product-grid" id="best-sellers-grid"></div>
+      </div>
+    </section>
+  </main>
+    
+</body>
