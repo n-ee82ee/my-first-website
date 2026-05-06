@@ -9,9 +9,9 @@
 
   <!-- Announcement Bar -->
   <div class="announcement-bar">
-    <button class="ann-arrow" aria-label="Previous">&lsaquo;</button>
+    <button class="ann-arrow" aria-label="Previous">‹</button>
     <span class="ann-text">BUY BULK BAGELS, SLICE + FREEZE! →</span>
-    <button class="ann-arrow" aria-label="Next">&rsaquo;</button>
+    <button class="ann-arrow" aria-label="Next">›</button>
   </div>
 
   <!-- Main Header -->
@@ -95,5 +95,61 @@
       </div>
     </section>
   </main>
-    
+
+  <!-- ================== PRODUCT LIST PAGE ================== -->
+  <main class="page" id="page-shop">
+    <section class="list-hero">
+      <div class="list-hero-image" style="background-image:url('assets/hero/list-hero.jpg')"></div>
+    </section>
+    <section class="list-content">
+      <div class="list-inner">
+        <div class="category-tabs" id="category-tabs"></div>
+        <div class="sort-row">
+          <div class="sort-box">
+            <span class="sort-label">Sort by:</span>
+            <span class="sort-value">Featured</span>
+            <span class="sort-caret">▾</span>
+          </div>
+        </div>
+        <div class="product-grid" id="shop-grid"></div>
+      </div>
+    </section>
+  </main>  
+
+  <!-- ================== PRODUCT DETAIL PAGE ================== -->
+  <main class="page" id="page-product">
+    <div class="detail-inner">
+      <nav class="breadcrumb" id="product-breadcrumb"></nav>
+      <div class="detail-layout" id="product-detail-body"></div>
+    </div>
+  </main>
+  
+  <!-- ================== CART PAGE ================== -->
+  <main class="page" id="page-cart">
+    <div class="cart-inner">
+      <nav class="breadcrumb">
+        <a href="#home" data-nav="home">Home</a>
+        <span class="bc-sep">›</span>
+        <span class="bc-current">Your Cart</span>
+      </nav>
+      <div class="cart-layout">
+        <div class="cart-items" id="cart-items-list"></div>
+        <aside class="cart-summary">
+          <h3 class="summary-title">Order Summary</h3>
+          <div class="summary-row"><span>Subtotal</span><span id="cart-subtotal">$0.00</span></div>
+          <div class="summary-row muted">
+            <span>Estimated<br/>Shipping</span>
+            <span>Calculated at<br/>checkout</span>
+          </div>
+          <div class="summary-row muted tiny"><span>including taxes</span><span></span></div>
+          <div class="summary-divider"></div>
+          <div class="summary-total"><span>Total</span><span id="cart-total">$0.00</span></div>
+          <a href="#checkout" data-nav="checkout" class="btn-primary btn-block">Check Out</a>
+          <a href="#shop" data-nav="shop" class="link-orange">Continue browsing →</a>
+          <p class="secure-text">Secure checkout powered by Stripe</p>
+        </aside>
+      </div>
+    </div>
+  </main>
+
 </body>
