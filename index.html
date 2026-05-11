@@ -43,7 +43,7 @@
   <!-- ================== HOME PAGE ================== -->
   <main class="page" id="page-home">
     <section class="hero">
-      <div class="hero-image" style="background-image:url('assets/hero/home-hero.jpg')"></div>
+      <div class="hero-image" id="home-hero-image"></div>
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <h1 class="hero-title">Real Bagels.<br/>The Old-School Way.</h1>
@@ -52,14 +52,14 @@
           <p>
             <strong>Hand-rolled, overnight proofed, boiled + baked</strong>—Better Bagels are made the <em>traditional way, with no shortcuts, no preservatives</em>, and a whole lot of flavour.
           </p>
-          <p>
+          <p class="hero-body-desktop">
             Crafted in small batches in South West WA, we bring a taste of our heritage to your table
             <strong>Tuesday, Thursday and Saturday mornings</strong>... freshness guaranteed! We're excited to become a staple in your household.
           </p>
         </div>
         <a href="#shop" data-nav="shop" class="btn-hero">START ORDERING</a>
       </div>
-    </section>  
+    </section>
 
     <section class="section section-categories">
       <div class="section-inner">
@@ -99,22 +99,23 @@
   <!-- ================== PRODUCT LIST PAGE ================== -->
   <main class="page" id="page-shop">
     <section class="list-hero">
-      <div class="list-hero-image" style="background-image:url('assets/hero/list-hero.jpg')"></div>
+      <div class="list-hero-image" style="background-image:url('assets/hero/list-hero.png')"></div>
     </section>
     <section class="list-content">
       <div class="list-inner">
         <div class="category-tabs" id="category-tabs"></div>
         <div class="sort-row">
-          <div class="sort-box">
+          <div class="sort-box" id="sort-box">
             <span class="sort-label">Sort by:</span>
-            <span class="sort-value">Featured</span>
+            <span class="sort-value" id="sort-value">Featured</span>
             <span class="sort-caret">▾</span>
+            <div class="sort-dropdown" id="sort-dropdown"></div>
           </div>
         </div>
         <div class="product-grid" id="shop-grid"></div>
       </div>
     </section>
-  </main>  
+  </main>
 
   <!-- ================== PRODUCT DETAIL PAGE ================== -->
   <main class="page" id="page-product">
@@ -149,7 +150,140 @@
           <p class="secure-text">Secure checkout powered by Stripe</p>
         </aside>
       </div>
+      <div class="you-may-like" id="you-may-like"></div>
     </div>
   </main>
+
+  <!-- ================== CHECKOUT PAGE ================== -->
+  <main class="page" id="page-checkout">
+    <div class="checkout-inner">
+      <nav class="breadcrumb">
+        <a href="#home" data-nav="home">Home</a>
+        <span class="bc-sep">›</span>
+        <span class="bc-current">Check Out</span>
+      </nav>
+      <div class="checkout-layout">
+        <form class="checkout-form" id="checkout-form" onsubmit="return false;">
+          <div class="form-section-head">
+            <h2 class="section-title-md">Contact Information</h2>
+            <a href="#home" class="link-orange">Log in</a>
+          </div>
+          <input class="input" type="text" placeholder="Email" />
+          <label class="checkbox-row">
+            <input type="checkbox" />
+            <span>Email me with news and offers</span>
+          </label>
+
+          <h2 class="section-title-md">Delivery Address</h2>
+          <select class="input"><option>Australia</option></select>
+          <div class="input-grid two">
+            <input class="input" placeholder="First name" />
+            <input class="input" placeholder="Last name" />
+          </div>
+          <input class="input" placeholder="Address" />
+          <input class="input" placeholder="Apartment, suite, etc. (optional)" />
+          <div class="input-grid three">
+            <input class="input" placeholder="Suburb/City" />
+            <select class="input"><option>State</option></select>
+            <input class="input" placeholder="Postcode" />
+          </div>
+          <input class="input" placeholder="Phone" />
+
+          <h2 class="section-title-md">Shipping Method</h2>
+          <div class="ship-options">
+            <label class="ship-row active" data-ship="delivery" data-ship-price="10">
+              <span class="radio-dot"></span>
+              <span class="ship-label">Standard Local Delivery</span>
+              <span class="ship-price">$10.00</span>
+            </label>
+            <label class="ship-row" data-ship="pickup" data-ship-price="0">
+              <span class="radio-dot"></span>
+              <span class="ship-label">Store Pickup</span>
+              <span class="ship-price">Free</span>
+            </label>
+          </div>
+
+          <h2 class="section-title-md">Payment</h2>
+          <p class="payment-hint">All transactions are secure and encrypted.</p>
+          <div class="card-group">
+            <input class="input" placeholder="Card number" />
+            <div class="input-grid two">
+              <input class="input" placeholder="Expiration date (MM / YY)" />
+              <input class="input" placeholder="Security code" />
+            </div>
+            <input class="input" placeholder="Name on card" />
+          </div>
+          <button type="button" class="btn-primary btn-block co-pay-desktop" data-nav="confirm">Pay now</button>
+        </form>
+
+        <aside class="checkout-summary">
+          <h3 class="summary-title">Order Summary</h3>
+          <div class="co-items" id="co-items"></div>
+          <div class="discount-row">
+            <input class="input" placeholder="Discount code" />
+            <button class="btn-apply">Apply</button>
+          </div>
+          <div class="summary-divider"></div>
+          <div class="summary-row"><span>Subtotal</span><span id="co-subtotal">$0.00</span></div>
+          <div class="summary-row"><span>Shipping/Pickup</span><span id="co-shipping">$10.00</span></div>
+          <div class="summary-row muted tiny"><span>including taxes</span><span></span></div>
+          <div class="summary-divider"></div>
+          <div class="summary-total big"><span>Total Paid</span><span id="co-total">$0.00</span></div>
+        </aside>
+        <button type="button" class="btn-primary btn-block co-pay-mobile" data-nav="confirm">Pay now</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================== ORDER CONFIRMATION PAGE ================== -->
+  <main class="page" id="page-confirm">
+    <div class="confirm-inner">
+      <div class="confirm-icon-wrap">
+        <div class="confirm-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+      </div>
+      <h1 class="confirm-title">Thank you for your order!</h1>
+      <p class="confirm-sub">Your order <strong id="confirm-id">#BB-8921</strong> has been confirmed.</p>
+      <p class="confirm-sub-sm">A confirmation email has been sent to customer@example.com.</p>
+      <div class="confirm-card">
+        <h3 class="summary-title">Order Summary</h3>
+        <div class="co-items" id="confirm-items"></div>
+        <div class="summary-divider"></div>
+        <div class="summary-row"><span>Subtotal</span><span id="confirm-subtotal">$0.00</span></div>
+        <div class="summary-row"><span>Shipping/Pickup</span><span id="confirm-shipping">$10.00</span></div>
+        <div class="summary-divider"></div>
+        <div class="summary-total big"><span>Total Paid</span><span id="confirm-total">$0.00</span></div>
+      </div>
+      <div class="confirm-actions">
+        <a href="#shop" data-nav="shop" class="btn-primary">Continue Shopping</a>
+        <a href="#home" data-nav="home" class="btn-outline">View Account</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================== FOOTER ================== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <h3 class="footer-title">Be first to know about special offers + Bagel Bundles!</h3>
+      <div class="footer-row">
+        <form class="footer-email" onsubmit="return false;">
+          <input type="email" placeholder="Email" />
+          <button type="submit" aria-label="Subscribe">→</button>
+        </form>
+        <div class="socials">
+          <a href="#" aria-label="Facebook">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99h-2.5V12h2.5V9.84c0-2.47 1.47-3.83 3.72-3.83 1.08 0 2.21.19 2.21.19v2.43h-1.25c-1.23 0-1.62.76-1.62 1.54V12h2.76l-.44 2.89h-2.32v6.99A10 10 0 0 0 22 12Z"/></svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37Z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026, Better Bagels Powered by Shopify • Privacy policy
+      </div>
+    </div>
+  </footer>
 
 </body>
