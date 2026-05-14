@@ -21,3 +21,104 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 /* ============ PAGE SYSTEM ============ */
 .page { display: none; }
 .page.active { display: block; }
+
+/* ============ ANNOUNCEMENT BAR ============ */
+.announcement-bar {
+  background: #000;
+  color: #fff;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.ann-arrow {
+  color: #fff;
+  font-size: 16px;
+  line-height: 1;
+  opacity: 0.8;
+  padding: 0 4px;
+}
+.ann-arrow:hover { opacity: 1; }
+
+/* ============ HEADER ============ */
+.site-header {
+  background: rgba(255,255,255,0.95);
+  border-bottom: 1px solid var(--border-line);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  height: 72px;
+  padding: 0 64px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 24px;
+}
+.logo { display: flex; align-items: center; }
+.logo-circle {
+  width: 40px;
+  height: 40px;
+  background: #000;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 7px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+.primary-nav {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+.nav-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+.nav-link:hover { color: var(--brand-orange); }
+.nav-link.with-caret::after { content: ' ⌄'; opacity: 0.5; }
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.icon-btn {
+  color: var(--text-dark);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 4px;
+}
+.icon-btn:hover { color: var(--brand-orange); }
+.cart-btn { position: relative; }
+.cart-badge {
+  position: absolute;
+  top: -2px;
+  right: -6px;
+  background: var(--brand-orange);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+.cart-badge.has-items { display: flex; }
