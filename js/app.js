@@ -164,6 +164,27 @@
     navigateTo(raw);
   }
 
+  function updateCartBadge() {
+    const badge = $('cart-badge');
+    const count = cartCount();
+    badge.textContent = count;
+    badge.classList.toggle('has-items', count > 0);
+  }
+
+  /* ============ EVENT DELEGATION ============ */
+  document.addEventListener('click', function (e) {
+    const t = e.target;
+
+    // Navigation via data-nav (works on buttons, anchors, image wrappers)
+    const navEl = t.closest('[data-nav]');
+    if (navEl) {
+      const dest = navEl.getAttribute('data-nav');
+      e.preventDefault();
+      window.location.hash = dest;
+      return;
+    }
+  });
+
   /* ============ INIT ============ */
   function init() {
     renderHome();
