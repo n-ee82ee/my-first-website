@@ -185,6 +185,15 @@
     }
   });
 
+  /* ============ HANDLE CAT-FILTER FROM HOME CATEGORY CARDS ============ */
+  document.addEventListener('click', function (e) {
+    const card = e.target.closest('[data-cat]');
+    if (card && card.hasAttribute('data-nav') === false) return;
+    if (card && card.getAttribute('data-nav') === 'shop') {
+      activeCategory = card.getAttribute('data-cat');
+    }
+  }, true);
+
   /* ============ INIT ============ */
   function init() {
     renderHome();
