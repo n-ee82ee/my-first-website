@@ -164,6 +164,27 @@
     navigateTo(raw);
   }
 
+  /* ============ RENDER: CARD ============ */
+  function productCardHTML(p) {
+    return (
+      '<article class="product-card" data-product="' + p.id + '">' +
+        '<a class="img-wrap" href="#product/' + p.id + '" data-nav="product/' + p.id + '">' +
+          '<img src="' + p.img + '" alt="' + p.name + '" />' +
+        '</a>' +
+        '<h3 class="p-name">' + p.name + '</h3>' +
+        '<div class="p-price">' + p.priceLabel + '</div>' +
+        '<button class="p-btn" data-nav="product/' + p.id + '">Choose options</button>' +
+      '</article>'
+    );
+  }
+
+  /* ============ RENDER: HOME ============ */
+  function renderHome() {
+    const grid = $('best-sellers-grid');
+    if (!grid) return;
+    grid.innerHTML = BEST_SELLERS.map(function (id) { return productCardHTML(byId(id)); }).join('');
+  }
+    
   function updateCartBadge() {
     const badge = $('cart-badge');
     const count = cartCount();
