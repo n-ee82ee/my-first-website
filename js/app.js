@@ -184,7 +184,48 @@
     if (!grid) return;
     grid.innerHTML = BEST_SELLERS.map(function (id) { return productCardHTML(byId(id)); }).join('');
   }
-    
+  
+  /* ============ RENDER: SHOP ============ */
+  function renderShop() {
+    const tabs = $('category-tabs');
+    tabs.innerHTML = CATEGORIES.map(function (cat) {
+      const active = cat === activeCategory ? ' active' : '';
+      return '<button class="cat-tab' + active + '" data-catfilter="' + cat + '">' + cat + '</button>';
+    }).join('');
+
+    // Sort dropdown
+    const sortVal = $('sort-value');
+    const sortDrop = $('sort-dropdown');
+    if (sortVal) {
+      const current = SORT_OPTIONS.find(function (o) { return o.key === activeSort; });
+      sortVal.textContent = current ? current.label : 'Featured';
+    }
+    if (sortDrop) {
+      sortDrop.innerHTML = SORT_OPTIONS.map(function (o) {
+        const active = o.key === activeSort ? ' active' : '';
+        return '<div class="sort-option' + active + '" data-sort="' + o.key + '">' + o.label + '</div>';
+      }).join('');
+    }
+
+    const grid = $('shop-grid');
+    let filtered = activeCategory === 'All Varieties'
+      ? PRODUCTS.slice()
+      : PRODUCTS.filter(function (p) { return p.category === activeCategory; });
+
+    if (activeSort === 'alpha-az') {
+      filtered.sort(function (a, b) { return a.name.localeCompare(b.name); });
+    } else if (activeSort === 'alpha-za') {
+      filtered.sort(function (a, b) { return b.name.localeCompare(a.name); });
+    } else if (activeSort === 'price-asc') {
+      filtered.sort(function (a, b) { return a.price - b.price; });
+    } else if (activeSort === 'price-desc') {
+      filtered.sort(function (a, b) { return b.price - a.price; });
+    }
+    // 'featured' keeps original PRODUCTS order
+
+    grid.innerHTML = filtered.map(productCardHTML).join('');
+  }
+
   function updateCartBadge() {
     const badge = $('cart-badge');
     const count = cartCount();
@@ -202,6 +243,131 @@
       const dest = navEl.getAttribute('data-nav');
       e.preventDefault();
       window.location.hash = dest;
+      return;
+    }
+
+    // Category filter (shop page)
+    const catBtn = t.closest('[data-catfilter]');
+    if (catBtn) {
+      activeCategory = catBtn.getAttribute('data-catfilter');
+      renderShop();
+      return;
+    }
+
+    // Detail qty +/-
+    const qtyBtn = t.closest('[data-qty-delta]');
+    if (qtyBtn) {
+      const delta = parseInt(qtyBtn.getAttribute('data-qty-delta'), 10);
+      detailState.qty = Math.max(1, detailState.qty + delta);
+      const pid = window.location.hash.split('/')[1];
+      renderDetailInfo(byId(pid));
+      return;
+    }
+
+    // Amount chip (gift card)
+    const amtBtn = t.closest('[data-amount]');
+    if (amtBtn) {
+      detailState.giftAmount = parseInt(amtBtn.getAttribute('data-amount'), 10);
+      const pid = window.location.hash.split('/')[1];
+      renderDetailInfo(byId(pid));
+      return;
+    }
+
+    // Pack-size chip (bagels)
+    const packBtn = t.closest('[data-packsize]');
+    if (packBtn) {
+      detailState.packSize = packBtn.getAttribute('data-packsize');
+      const pid = window.location.hash.split('/')[1];
+      renderDetailInfo(byId(pid));
+      return;
+    }
+
+    // Big Bagel Box bagel qty +/-
+    const boxBtn = t.closest('[data-box-delta]');
+    if (boxBtn) {
+      const row = boxBtn.closest('[data-box-bagel]');
+      const flavor = row.getAttribute('data-box-bagel');
+      const delta = parseInt(boxBtn.getAttribute('data-box-delta'), 10);
+      const total = Object.values(detailState.boxBagels).reduce(function (s, v) { return s + v; }, 0);
+      const next = Math.max(0, detailState.boxBagels[flavor] + delta);
+      if (delta > 0 && total >= 10) return;
+      detailState.boxBagels[flavor] = next;
+      const pid = window.location.hash.split('/')[1];
+      renderDetailInfo(byId(pid));
+      return;
+    }
+
+    // Schmear checkbox
+    const schmRow = t.closest('[data-schmear]');
+    if (schmRow) {
+      e.preventDefault();
+      const flavor = schmRow.getAttribute('data-schmear');
+      const idx = detailState.boxSchmears.indexOf(flavor);
+      if (idx === -1) {
+        if (detailState.boxSchmears.length >= 2) return;
+        detailState.boxSchmears.push(flavor);
+      } else {
+        detailState.boxSchmears.splice(idx, 1);
+      }
+      const pid = window.location.hash.split('/')[1];
+      renderDetailInfo(byId(pid));
+      return;
+    }
+
+    // Add to Cart
+    const addBtn = t.closest('[data-add-to-cart]');
+    if (addBtn) {
+      const pid = window.location.hash.split('/')[1];
+      addItemToCart(byId(pid));
+      return;
+    }
+
+    // Cart qty +/-
+    const cartDelta = t.closest('[data-cart-delta]');
+    if (cartDelta) {
+      const i = parseInt(cartDelta.getAttribute('data-ci'), 10);
+      const delta = parseInt(cartDelta.getAttribute('data-cart-delta'), 10);
+      cart[i].qty = Math.max(1, cart[i].qty + delta);
+      updateCartBadge();
+      renderCart();
+      return;
+    }
+
+    // Cart remove
+    const rmBtn = t.closest('[data-cart-remove]');
+    if (rmBtn) {
+      const i = parseInt(rmBtn.getAttribute('data-cart-remove'), 10);
+      cart.splice(i, 1);
+      updateCartBadge();
+      renderCart();
+      return;
+    }
+
+    // Shipping method
+    const shipRow = t.closest('.ship-row');
+    if (shipRow) {
+      document.querySelectorAll('.ship-row').forEach(function (r) { r.classList.remove('active'); });
+      shipRow.classList.add('active');
+      shippingMethod = shipRow.getAttribute('data-ship') || 'delivery';
+      shippingCost = parseFloat(shipRow.getAttribute('data-ship-price') || '0');
+      renderCheckout();
+      return;
+    }
+
+    // Sort option selected
+    const sortOpt = t.closest('[data-sort]');
+    if (sortOpt) {
+      activeSort = sortOpt.getAttribute('data-sort');
+      const sortBox = $('sort-box');
+      if (sortBox) sortBox.classList.remove('open');
+      renderShop();
+      return;
+    }
+
+    // Sort box toggle (open/close dropdown)
+    const sortBox = t.closest('#sort-box');
+    if (sortBox) {
+      sortBox.classList.toggle('open');
       return;
     }
   });
